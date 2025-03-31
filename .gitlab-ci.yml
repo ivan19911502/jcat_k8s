@@ -26,7 +26,7 @@ build:
     - docker push $DOCKER_IMAGE:$IMAGE_TAG
     - docker push $DOCKER_IMAGE:latest
   tags:
-    - kubernetes
+    - gitlab-runner
 
 test:
   stage: test
@@ -35,7 +35,7 @@ test:
     - cd jcat/backend
     - mvn test
   tags:
-    - kubernetes
+    - gitlab-runner
 
 deploy:
   stage: deploy
@@ -74,4 +74,4 @@ deploy:
   only:
     - master
   tags:
-    - kubernetes
+    - gitlab-runner
