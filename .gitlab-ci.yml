@@ -76,6 +76,6 @@ deploy:
     
     - kubectl rollout status deployment/jcat -n $KUBE_NAMESPACE
   only:
-    - master
+    - jcat
   tags:
     - gitlab-runner
