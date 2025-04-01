@@ -66,7 +66,7 @@ deploy:
     - sed -i "s|__REGISTRY_SECRET__|dockerhub-secret|g" jcat_k8s/Deployment_jcat.yaml
   script:
     
-    - kubectl apply -f jcat_k8s/postgres-credentials.yaml
+    - kubectl apply -f jcat_k8s/postgres-credentials-secret.yaml
     - kubectl apply -f jcat_k8s/init-db-script-cm.yaml
     
     - kubectl apply -f jcat_k8s/pvc_postgres.yaml
