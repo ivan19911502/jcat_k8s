@@ -17,7 +17,7 @@ build:
   services:
     - docker:20.10.16-dind
   script:
-    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+    - docker login -u "$DOCKER_HUB_USERNAME" -p "$DOCKER_HUB_PASSWORD"
 
     - cd jcat
     - docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
