@@ -67,7 +67,7 @@ deploy:
   script:
     
     - kubectl apply -f jcat_k8s/postgres-credentials-secret.yaml
-    - kubectl apply -f jcat_k8s/init-db-script-cm.yaml
+    - kubectl apply -f jcat_k8s/init-db-script-configmap.yaml
     
     - kubectl apply -f jcat_k8s/pvc_postgres.yaml
     
