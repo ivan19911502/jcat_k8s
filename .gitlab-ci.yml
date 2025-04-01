@@ -70,12 +70,12 @@ deploy:
     - kubectl apply -f jcat_k8s/init-db-script-configmap.yaml
     
     - kubectl apply -f jcat_k8s/pvc_postgres.yaml
-    
-    - kubectl apply -f jcat_k8s/Deployment_postgres.yaml
     - kubectl apply -f jcat_k8s/Service_postgres.yaml
+    - kubectl apply -f jcat_k8s/Deployment_postgres.yaml
     
-    - kubectl apply -f jcat_k8s/Deployment_jcat.yaml
     - kubectl apply -f jcat_k8s/Service_jcat.yaml
+    - kubectl apply -f jcat_k8s/Deployment_jcat.yaml
+    
     
     - kubectl rollout status deployment/jcat -n $KUBE_NAMESPACE
   only:
