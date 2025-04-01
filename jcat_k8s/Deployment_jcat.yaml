@@ -13,6 +13,8 @@ spec:
       labels:
         app: myapp
     spec:
+      imagePullSecrets:
+      - name: __REGISTRY_SECRET__
       containers:
       - name: myapp
         image: __IMAGE_NAME__
