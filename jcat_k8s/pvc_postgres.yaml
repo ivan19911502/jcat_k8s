@@ -1,7 +1,23 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv-myapp
+  namespace: __NAMESPACE__
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/db/postgres-myapp
+     
+  
+---
+
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-pvc-myapp
   namespace: __NAMESPACE__
 spec:
   accessModes:
@@ -9,4 +25,3 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: devlaba-storage-class
