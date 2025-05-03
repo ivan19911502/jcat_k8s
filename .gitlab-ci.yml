@@ -67,8 +67,10 @@ deploy:
         --dry-run=client -o yaml | kubectl apply -f -
     
     - sed -i "s|__IMAGE_NAME__Backend|$DOCKER_IMAGE-backend:$IMAGE_TAG|g" jcat_k8s/Deployment_backend_jcat.yaml
+    - sed -i "s|__IMAGE_NAME__Frontend|$DOCKER_IMAGE-frontend:$IMAGE_TAG|g" jcat_k8s/Deployment_frontend_jcat.yaml
     - sed -i "s|__NAMESPACE__|$KUBE_NAMESPACE|g" jcat_k8s/*.yaml
     - sed -i "s|__REGISTRY_SECRET__|dockerhub-secret|g" jcat_k8s/Deployment_backend_jcat.yaml
+    - sed -i "s|__REGISTRY_SECRET__|dockerhub-secret|g" jcat_k8s/Deployment_frontend_jcat.yaml
   script:
     
     - kubectl apply -f jcat_k8s/postgres-credentials-secret.yaml
@@ -78,8 +80,11 @@ deploy:
     - kubectl apply -f jcat_k8s/Service_postgres.yaml
     - kubectl apply -f jcat_k8s/Deployment_postgres.yaml
     
-    - kubectl apply -f jcat_k8s/Service_jcat.yaml
+    - kubectl apply -f jcat_k8s/Service_backend_jcat.yaml
     - kubectl apply -f jcat_k8s/Deployment_backend_jcat.yaml
+
+    - kubectl apply -f jcat_k8s/Service_frontend_jcat.yaml
+    - kubectl apply -f jcat_k8s/Deployment_frontend_jcat.yaml
     
   only:
     - jcat
