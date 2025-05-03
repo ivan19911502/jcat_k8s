@@ -24,11 +24,16 @@ build:
     - echo "$DOCKER_HUB_PASSWORD" | docker login --username "$DOCKER_HUB_USERNAME" --password-stdin
 
     - cd jcat
-    - docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
-    - docker tag $DOCKER_IMAGE:$IMAGE_TAG $DOCKER_IMAGE:latest
-    
-    - docker push $DOCKER_IMAGE:$IMAGE_TAG
-    - docker push $DOCKER_IMAGE:latest
+  #Backend
+    - docker build -t $DOCKER_IMAGE-backend:$IMAGE_TAG -f Dockerfile.backend .
+    - docker tag $DOCKER_IMAGE-backend:$IMAGE_TAG $DOCKER_IMAGE-backend:latest
+    - docker push $DOCKER_IMAGE-backend:$IMAGE_TAG
+    - docker push $DOCKER_IMAGE-backend:latest
+  #Frontend
+    - docker build -t $DOCKER_IMAGE-frontend:$IMAGE_TAG -f Dockerfile.frontend .
+    - docker tag $DOCKER_IMAGE-frontend:$IMAGE_TAG $DOCKER_IMAGE-frontend:latest
+    - docker push $DOCKER_IMAGE-frontend:$IMAGE_TAG
+    - docker push $DOCKER_IMAGE-frontend:latest
   tags:
     - gitlab-runner
 
@@ -61,9 +66,9 @@ deploy:
         -n $KUBE_NAMESPACE \
         --dry-run=client -o yaml | kubectl apply -f -
     
-    - sed -i "s|__IMAGE_NAME__|$DOCKER_IMAGE:$IMAGE_TAG|g" jcat_k8s/Deployment_jcat.yaml
+    - sed -i "s|__IMAGE_NAME__|$DOCKER_IMAGE-backend:$IMAGE_TAG|g" jcat_k8s/Deployment_backend_jcat.yaml
     - sed -i "s|__NAMESPACE__|$KUBE_NAMESPACE|g" jcat_k8s/*.yaml
-    - sed -i "s|__REGISTRY_SECRET__|dockerhub-secret|g" jcat_k8s/Deployment_jcat.yaml
+    - sed -i "s|__REGISTRY_SECRET__|dockerhub-secret|g" jcat_k8s/Deployment_backend_jcat.yaml
   script:
     
     - kubectl apply -f jcat_k8s/postgres-credentials-secret.yaml
@@ -74,7 +79,7 @@ deploy:
     - kubectl apply -f jcat_k8s/Deployment_postgres.yaml
     
     - kubectl apply -f jcat_k8s/Service_jcat.yaml
-    - kubectl apply -f jcat_k8s/Deployment_jcat.yaml
+    - kubectl apply -f jcat_k8s/Deployment_backend_jcat.yaml
     
   only:
     - jcat
