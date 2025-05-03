@@ -17,7 +17,7 @@ spec:
       - name: __REGISTRY_SECRET__
       containers:
       - name: frontend
-        image: __FRONTEND_IMAGE__Frontend
+        image: __IMAGE_NAME__Frontend
         ports:
         - containerPort: 3000
         env:
