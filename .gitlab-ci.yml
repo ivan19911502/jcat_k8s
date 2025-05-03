@@ -66,7 +66,7 @@ deploy:
         -n $KUBE_NAMESPACE \
         --dry-run=client -o yaml | kubectl apply -f -
     
-    - sed -i "s|__IMAGE_NAME__|$DOCKER_IMAGE-backend:$IMAGE_TAG|g" jcat_k8s/Deployment_backend_jcat.yaml
+    - sed -i "s|__IMAGE_NAME__Backend|$DOCKER_IMAGE-backend:$IMAGE_TAG|g" jcat_k8s/Deployment_backend_jcat.yaml
     - sed -i "s|__NAMESPACE__|$KUBE_NAMESPACE|g" jcat_k8s/*.yaml
     - sed -i "s|__REGISTRY_SECRET__|dockerhub-secret|g" jcat_k8s/Deployment_backend_jcat.yaml
   script:
