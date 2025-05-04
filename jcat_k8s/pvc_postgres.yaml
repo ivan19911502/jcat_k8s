@@ -10,6 +10,15 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: /data/db/postgres-myapp
+  nodeAffinity:  
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - node2
+
      
   
 ---
