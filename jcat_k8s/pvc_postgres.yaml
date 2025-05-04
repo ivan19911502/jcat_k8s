@@ -4,6 +4,7 @@ metadata:
   name: postgres-pv-myapp
   namespace: __NAMESPACE__
 spec:
+  storageClassName: local
   capacity:
     storage: 10Gi
   accessModes:
