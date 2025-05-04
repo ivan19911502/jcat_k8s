@@ -22,7 +22,7 @@ spec:
         - containerPort: 3000
         env:
         - name: REACT_APP_API_URL
-          value: http://backend-service:8080  
+          value: http://jcat-backend-service:80  
         resources:
           limits:
             cpu: "0.5"
